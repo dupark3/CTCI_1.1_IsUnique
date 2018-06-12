@@ -12,6 +12,7 @@ using namespace std;
 // O(n), where n = number of chars in the string
 bool check_unique(const string& input){
     map<char, int> char_map;
+
     size_t string_size = input.size();
 
     for (size_t i = 0; i != string_size; ++i){
@@ -22,12 +23,28 @@ bool check_unique(const string& input){
     return true;
 }
 
+// No additional data structure
+bool check_unique_with_array(const string& input){
+    // must initialize array to avoid garbage values
+    bool char_indexed_array[255] = { false };
+    
+    size_t string_size = input.size();
+    
+    for (size_t i = 0; i != string_size; ++i){
+        if (char_indexed_array[input[i]] == true){
+            return false;
+        }
+        char_indexed_array[input[i]] = true;
+    }
+    return true;
+}
+
 int main(){
     cout << "Enter the string to check if it has all unique characters: ";
     string input;
     cin >> input;
 
-    if (check_unique(input)){
+    if (check_unique_with_array(input)){
         cout << "UNIQUE\n";
     } else {
         cout << "NOT UNIQUE\n";
